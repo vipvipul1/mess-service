@@ -22,8 +22,10 @@ public class UserVo {
 	private Date dob;
 	private String studentId;
 	private Integer roleId;
+	private Boolean isVeg;
 	private Boolean isActive;
 	private Boolean isDisabled;
-	private Boolean isVeg;
+	private Boolean isNew;
+	private Date regDate;
 	
 }

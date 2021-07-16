@@ -32,7 +32,7 @@ public class LoginUserController extends BaseControllerMess {
 			Boolean isUserValid = loginUserService.validateUserLogin(userVo.getUsername(), userVo.getPassword());
 			response = ResponseEntity.ok().body(isUserValid);
 		} catch(Exception e) {
-			LOGGER.error("Exception in LoginUserController :: validateUserLogin : {}", e);
+			LOGGER.error("Error in LoginUserController :: validateUserLogin : {}", e);
 			String rootCause = ExceptionUtils.getRootCauseMessage(e);
 			response = getResponse(LOGGER, e, rootCause);
 		}

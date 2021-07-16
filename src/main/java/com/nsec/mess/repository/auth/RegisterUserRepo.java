@@ -45,7 +45,7 @@ public class RegisterUserRepo implements IRegisterUserRepo {
 		} catch (NoResultException e) {
 			isAvailable = false;
 		} catch (Exception e) {
-			LOGGER.error("Exception in RegisterUserRepo :: validateUserBeforeRegister : {}", e);
+			LOGGER.error("Error in RegisterUserRepo :: validateUserBeforeRegister : {}", e.getMessage());
 			throw e;
 		}
 

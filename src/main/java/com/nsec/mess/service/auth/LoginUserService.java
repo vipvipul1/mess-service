@@ -27,7 +27,7 @@ public class LoginUserService implements ILoginUserService{
 		try {
 			isUserValid = loginUserRepo.validateUserLogin(username, password);
 		} catch(Exception e) {
-			LOGGER.error("Exception in LoginUserService :: validateUserLogin : {}", e);
+			LOGGER.error("Error in LoginUserService :: validateUserLogin : {}", e.getMessage());
 			throw e;
 		}
 		LOGGER.info("LoginUserService :: validateUserLogin :: End");

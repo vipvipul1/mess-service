@@ -1,5 +1,7 @@
 package com.nsec.mess.rest.auth;
 
+import java.util.Date;
+
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,15 +33,17 @@ public class RegisterUserController extends BaseControllerMess {
 
 		ResponseEntity<?> response = null;
 		if (userVo.getUserId() == -1) {
-			userVo.setIsDisabled(true);
-			userVo.setIsActive(false);
 			userVo.setRoleId(2);
+			userVo.setIsDisabled(true);
+			userVo.setIsActive(true);
+			userVo.setIsNew(true);
+			userVo.setRegDate(new Date());
 		}
 		try {
 			Integer userId = registerUserService.registerUser(userVo);
 			response = ResponseEntity.ok().body(userId);
 		} catch (Exception e) {
-			LOGGER.error("RegisterUserController :: registerUser : {}", e);
+			LOGGER.error("Error in RegisterUserController :: registerUser : {}", e);
 			String rootCause = ExceptionUtils.getRootCauseMessage(e);
 			response = getResponse(LOGGER, e, rootCause);
 		}
@@ -57,7 +61,7 @@ public class RegisterUserController extends BaseControllerMess {
 			Boolean isAvailable = registerUserService.validateUserBeforeRegister(data);
 			response = ResponseEntity.ok().body(isAvailable);
 		} catch (Exception e) {
-			LOGGER.error("RegisterUserController :: validateUserBeforeRegister : {}", e);
+			LOGGER.error("Error in RegisterUserController :: validateUserBeforeRegister : {}", e);
 			String rootCause = ExceptionUtils.getRootCauseMessage(e);
 			response = getResponse(LOGGER, e, rootCause);
 		}

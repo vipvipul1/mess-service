@@ -30,7 +30,7 @@ public class RegisterUserService implements IRegisterUserService {
 		try {
 			userEntity = registerUserRepo.registerUser(userEntity);
 		} catch(Exception e) {
-			LOGGER.error("Exception in RegisterUserService :: registerUser : {}", e);
+			LOGGER.error("Error in RegisterUserService :: registerUser : {}", e.getMessage());
 			throw e;
 		}
 		LOGGER.info("RegisterUserService :: registerUser :: End");
@@ -47,7 +47,7 @@ public class RegisterUserService implements IRegisterUserService {
 		try {
 			isAvailable = registerUserRepo.validateUserBeforeRegister(data);
 		} catch(Exception e) {
-			LOGGER.error("Exception in RegisterUserService :: validateUserBeforeRegister : {}", e);
+			LOGGER.error("Error in RegisterUserService :: validateUserBeforeRegister : {}", e.getMessage());
 			throw e;
 		}
 		LOGGER.info("RegisterUserService :: validateUserBeforeRegister :: End");

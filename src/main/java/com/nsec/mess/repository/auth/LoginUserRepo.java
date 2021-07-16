@@ -32,7 +32,7 @@ public class LoginUserRepo implements ILoginUserRepo{
 		} catch (NoResultException exc) {
 			isUserValid = false;
 		} catch (Exception exc) {
-			LOGGER.error("Exception in LoginUserRepo :: validateUserLogin : {}", exc);
+			LOGGER.error("Error in LoginUserRepo :: validateUserLogin : {}", exc.getMessage());
 			throw exc;
 		}
 		

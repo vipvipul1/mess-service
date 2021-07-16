@@ -49,11 +49,14 @@ public class User {
 	@Column(name = "DOB")
 	private Date dob;
 	
-	@Column
+	@Column(name = "STUDENT_ID")
 	private String studentId;
 	
 	@Column(name = "ROLE_ID")
 	private Integer roleId;
+
+	@Column(name = "IS_VEG")
+	private Boolean isVeg;
 	
 	@Column(name = "IS_ACTIVE")
 	private Boolean isActive;
@@ -61,7 +64,10 @@ public class User {
 	@Column(name = "IS_DISABLED")
 	private Boolean isDisabled;
 	
-	@Column(name = "IS_VEG")
-	private Boolean isVeg;
+	@Column(name = "IS_NEW")
+	private Boolean isNew;
+	
+	@Column(name = "REG_DATE")
+	private Date regDate;
 
 }
