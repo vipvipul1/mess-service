@@ -8,4 +8,6 @@ public interface IManageUsersService {
 
 	List<UserVo> getAllUserDetails();
 
+	Integer grantOrRevokeAccess(Integer userId, String action);
+
 }

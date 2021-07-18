@@ -19,25 +19,24 @@ public class LoginUserRepo implements ILoginUserRepo{
 	private EntityManager entityManager;
 	
 	@Override
-	public Boolean validateUserLogin(String username, String password) {
+	public User validateUserLogin(String username, String password) {
 		LOGGER.info("LoginUserRepo :: validateUserLogin :: Start");
 		
-		Boolean isUserValid = null;
+		User user = null;
 		try {
-			entityManager.createQuery("SELECT u FROM User u WHERE u.username =:username and u.password =:password and u.isDisabled=false and u.isActive=true", User.class)
+			user = entityManager.createQuery("SELECT u FROM User u WHERE u.username =:username and u.password =:password and u.isDisabled=false and u.isActive=true", User.class)
 					.setParameter("username", username)
 					.setParameter("password", password)
 					.getSingleResult();
-			isUserValid = true;
 		} catch (NoResultException exc) {
-			isUserValid = false;
+			LOGGER.info("User not found with given credentials!");
 		} catch (Exception exc) {
 			LOGGER.error("Error in LoginUserRepo :: validateUserLogin : {}", exc.getMessage());
 			throw exc;
 		}
 		
 		LOGGER.info("LoginUserRepo :: validateUserLogin :: End");
-		return isUserValid;
+		return user;
 	}
 
 

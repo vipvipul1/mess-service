@@ -45,7 +45,7 @@ public class RegisterUserController extends BaseControllerMess {
 		} catch (Exception e) {
 			LOGGER.error("Error in RegisterUserController :: registerUser : {}", e);
 			String rootCause = ExceptionUtils.getRootCauseMessage(e);
-			response = getResponse(LOGGER, e, rootCause);
+			response = getResponse(e, rootCause, LOGGER);
 		}
 
 		LOGGER.info("RegisterUserController :: registerUser :: End");
@@ -63,7 +63,7 @@ public class RegisterUserController extends BaseControllerMess {
 		} catch (Exception e) {
 			LOGGER.error("Error in RegisterUserController :: validateUserBeforeRegister : {}", e);
 			String rootCause = ExceptionUtils.getRootCauseMessage(e);
-			response = getResponse(LOGGER, e, rootCause);
+			response = getResponse(e, rootCause, LOGGER);
 		}
 
 		LOGGER.info("RegisterUserController :: validateUserBeforeRegister :: End");

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nsec.mess.models.User;
 import com.nsec.mess.rest.util.BaseControllerMess;
 import com.nsec.mess.service.auth.ILoginUserService;
 import com.nsec.mess.vo.UserVo;
@@ -29,16 +30,16 @@ public class LoginUserController extends BaseControllerMess {
 		ResponseEntity<?> response = null;
 		
 		try {
-			Boolean isUserValid = loginUserService.validateUserLogin(userVo.getUsername(), userVo.getPassword());
-			response = ResponseEntity.ok().body(isUserValid);
+			User user = loginUserService.validateUserLogin(userVo.getUsername(), userVo.getPassword());
+			response = ResponseEntity.ok().body(user);
 		} catch(Exception e) {
 			LOGGER.error("Error in LoginUserController :: validateUserLogin : {}", e);
 			String rootCause = ExceptionUtils.getRootCauseMessage(e);
-			response = getResponse(LOGGER, e, rootCause);
+			response =  getResponse(e, rootCause, LOGGER);
 		}
 		
 		LOGGER.info("LoginUserController :: validateUserLogin :: Start");
 		return response;
 	}
-	
+
 }
