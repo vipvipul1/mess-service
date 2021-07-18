@@ -1,7 +1,9 @@
 package com.nsec.mess.service.auth;
 
+import com.nsec.mess.models.User;
+
 public interface ILoginUserService {
 
-	Boolean validateUserLogin(String username, String password);
+	User validateUserLogin(String username, String password);
 
 }

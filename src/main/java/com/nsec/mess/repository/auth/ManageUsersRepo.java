@@ -35,5 +35,39 @@ public class ManageUsersRepo implements IManageUsersRepo {
 		LOGGER.info("ManageUsersRepo :: getAllUserDetails :: End");
 		return userList;
 	}
+	
+	@Override
+	public Integer grantAccess(Integer userId) {
+		LOGGER.info("ManageUsersRepo :: grantAccess :: Start");
+		Integer rowsUpdated = null;
+		
+		try {
+			rowsUpdated = entityManager.createQuery("UPDATE User u SET u.isDisabled=false WHERE u.userId = :userId")
+					.setParameter("userId", userId).executeUpdate();
+		} catch (Exception e) {
+			LOGGER.error("Error in ManageUsersRepo :: grantAccess : {}", e.getMessage());
+			throw e;
+		}
+		
+		LOGGER.info("ManageUsersRepo :: grantAccess :: End");
+		return rowsUpdated;
+	}
+	
+	@Override
+	public Integer revokeAccess(Integer userId) {
+		LOGGER.info("ManageUsersRepo :: revokeAccess :: Start");
+		Integer rowsUpdated = null;
+		
+		try {
+			rowsUpdated = entityManager.createQuery("UPDATE User u SET u.isDisabled=true WHERE u.userId = :userId")
+					.setParameter("userId", userId).executeUpdate();
+		} catch (Exception e) {
+			LOGGER.error("Error in ManageUsersRepo :: revokeAccess : {}", e.getMessage());
+			throw e;
+		}
+		
+		LOGGER.info("ManageUsersRepo :: revokeAccess :: End");
+		return rowsUpdated;
+	}
 
 }

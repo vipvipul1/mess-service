@@ -23,8 +23,12 @@ public class ErrorMessage {
 		this.friendlyMessage = MessConstants.ERROR_MESSAGE;
 	}
 	
+	public ErrorMessage(Integer statusCode, String friendlyMessage) {
+		this.statusCode = statusCode;
+		this.friendlyMessage = friendlyMessage;
+	}
+	
 	public void copy(Logger logger, Exception exception, String friendlyErrorMessage, boolean isDeveloper) {
-		this.statusCode = 500;
 		this.errorMessages = exception.getStackTrace();
 		this.friendlyErrorMessage = friendlyErrorMessage;
 		this.isDeveloper = isDeveloper;

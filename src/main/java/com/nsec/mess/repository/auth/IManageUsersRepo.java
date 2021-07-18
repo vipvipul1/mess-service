@@ -8,4 +8,8 @@ public interface IManageUsersRepo {
 
 	List<User> getAllUserDetails();
 
+	Integer grantAccess(Integer userId);
+
+	Integer revokeAccess(Integer userId);
+
 }

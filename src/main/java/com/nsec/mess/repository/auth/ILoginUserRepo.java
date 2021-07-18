@@ -1,7 +1,9 @@
 package com.nsec.mess.repository.auth;
 
+import com.nsec.mess.models.User;
+
 public interface ILoginUserRepo {
 
-	Boolean validateUserLogin(String username, String password);
+	User validateUserLogin(String username, String password);
 
 }
