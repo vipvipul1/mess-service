@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nsec.mess.rest.util.BaseControllerMess;
 import com.nsec.mess.service.auth.IRegisterUserService;
-import com.nsec.mess.vo.UserVo;
+import com.nsec.mess.vo.UserVO;
 
 @RestController
 @RequestMapping("/mess/register")
@@ -25,10 +25,10 @@ public class RegisterUserController extends BaseControllerMess {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RegisterUserController.class);
 
 	@Autowired
-	private IRegisterUserService registerUserService;
+	private IRegisterUserService iRegisterUserService;
 
 	@PostMapping("/user")
-	public ResponseEntity<?> registerUser(@RequestBody UserVo userVo) {
+	public ResponseEntity<?> registerUser(@RequestBody UserVO userVo) {
 		LOGGER.info("RegisterUserController :: registerUser :: Start");
 
 		ResponseEntity<?> response = null;
@@ -40,7 +40,7 @@ public class RegisterUserController extends BaseControllerMess {
 			userVo.setRegDate(new Date());
 		}
 		try {
-			Integer userId = registerUserService.registerUser(userVo);
+			Integer userId = iRegisterUserService.registerUser(userVo);
 			response = ResponseEntity.ok().body(userId);
 		} catch (Exception e) {
 			LOGGER.error("Error in RegisterUserController :: registerUser : {}", e);
@@ -58,7 +58,7 @@ public class RegisterUserController extends BaseControllerMess {
 
 		ResponseEntity<?> response = null;
 		try {
-			Boolean isAvailable = registerUserService.validateUserBeforeRegister(data);
+			Boolean isAvailable = iRegisterUserService.validateUserBeforeRegister(data);
 			response = ResponseEntity.ok().body(isAvailable);
 		} catch (Exception e) {
 			LOGGER.error("Error in RegisterUserController :: validateUserBeforeRegister : {}", e);

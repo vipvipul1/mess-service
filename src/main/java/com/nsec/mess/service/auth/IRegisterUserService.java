@@ -1,10 +1,10 @@
 package com.nsec.mess.service.auth;
 
-import com.nsec.mess.vo.UserVo;
+import com.nsec.mess.vo.UserVO;
 
 public interface IRegisterUserService {
 
-	Integer registerUser(UserVo userVo);
+	Integer registerUser(UserVO userVo);
 
 	Boolean validateUserBeforeRegister(String data);
 

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nsec.mess.exception.AppException;
 import com.nsec.mess.rest.util.BaseControllerMess;
 import com.nsec.mess.service.auth.IManageUsersService;
-import com.nsec.mess.vo.UserVo;
+import com.nsec.mess.vo.UserVO;
 
 @RestController
 @RequestMapping("/mess/manage")
@@ -27,7 +27,7 @@ public class ManageUsersController extends BaseControllerMess {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ManageUsersController.class);
 
 	@Autowired
-	private IManageUsersService manageUsersService;
+	private IManageUsersService iManageUsersService;
 
 	@GetMapping("/getAllUsers")
 	public ResponseEntity<?> getAllUserDetails() {
@@ -35,7 +35,7 @@ public class ManageUsersController extends BaseControllerMess {
 		ResponseEntity<?> response = null;
 
 		try {
-			List<UserVo> userVoList = manageUsersService.getAllUserDetails();
+			List<UserVO> userVoList = iManageUsersService.getAllUserDetails();
 			response = ResponseEntity.ok().body(userVoList);
 		} catch (Exception e) {
 			LOGGER.error("Error in ManageUsersController :: getAllUserDetails : {}", e);
@@ -48,12 +48,12 @@ public class ManageUsersController extends BaseControllerMess {
 	}
 
 	@PutMapping("/access/{action}")
-	public ResponseEntity<?> grantOrRevokeAccess(@PathVariable("action") String action, @RequestBody UserVo userVo) {
+	public ResponseEntity<?> grantOrRevokeAccess(@PathVariable("action") String action, @RequestBody UserVO userVo) {
 		LOGGER.info("ManageUsersController :: grantOrRevokeAccess :: Start");
 		ResponseEntity<?> response = null;
 
 		try {
-			Integer rowsUpdated = manageUsersService.grantOrRevokeAccess(userVo.getUserId(), action);
+			Integer rowsUpdated = iManageUsersService.grantOrRevokeAccess(userVo.getUserId(), action);
 			if (rowsUpdated > 0)
 				response = ResponseEntity.ok().body(true);
 			else if (rowsUpdated == 0)

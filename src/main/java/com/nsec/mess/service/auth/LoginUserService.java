@@ -17,7 +17,7 @@ public class LoginUserService implements ILoginUserService{
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginUserController.class);
 	
 	@Autowired
-	private ILoginUserRepo loginUserRepo;
+	private ILoginUserRepo iLoginUserRepo;
 	
 	@Override
 	@Transactional
@@ -26,7 +26,7 @@ public class LoginUserService implements ILoginUserService{
 		
 		User user = null;
 		try {
-			user = loginUserRepo.validateUserLogin(username, password);
+			user = iLoginUserRepo.validateUserLogin(username, password);
 		} catch(Exception e) {
 			LOGGER.error("Error in LoginUserService :: validateUserLogin : {}", e.getMessage());
 			throw e;

@@ -9,11 +9,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class UserVo {
+public class UserVO {
 
 	private Integer userId;
 	private String username;
-	private String name;
+	private String fullName;
 	private String phone;
 	private String email;
 	private String password;

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.nsec.mess.models.User;
 import com.nsec.mess.repository.auth.IManageUsersRepo;
 import com.nsec.mess.util.MessConstants;
-import com.nsec.mess.vo.UserVo;
+import com.nsec.mess.vo.UserVO;
 
 @Service
 public class ManageUsersService implements IManageUsersService {
@@ -21,18 +21,18 @@ public class ManageUsersService implements IManageUsersService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ManageUsersService.class);
 
 	@Autowired
-	private IManageUsersRepo manageUsersRepo;
+	private IManageUsersRepo iManageUsersRepo;
 
 	@Override
 	@Transactional
-	public List<UserVo> getAllUserDetails() {
+	public List<UserVO> getAllUserDetails() {
 		LOGGER.info("ManageUsersService :: getAllUserDetails :: Start");
 
-		List<UserVo> userVoList = new ArrayList<>();
+		List<UserVO> userVoList = new ArrayList<>();
 		try {
-			List<User> userList = manageUsersRepo.getAllUserDetails();
+			List<User> userList = iManageUsersRepo.getAllUserDetails();
 			for (User user : userList) {
-				UserVo userVo = new UserVo();
+				UserVO userVo = new UserVO();
 				BeanUtils.copyProperties(user, userVo);
 				userVo.setPassword(null);
 				userVoList.add(userVo);
@@ -54,9 +54,9 @@ public class ManageUsersService implements IManageUsersService {
 		Integer rowsUpdated = null;
 		try {
 			if (MessConstants.GRANT.equals(action))
-				rowsUpdated = manageUsersRepo.grantAccess(userId);
+				rowsUpdated = iManageUsersRepo.grantAccess(userId);
 			else if (MessConstants.REVOKE.equals(action))
-				rowsUpdated = manageUsersRepo.revokeAccess(userId);
+				rowsUpdated = iManageUsersRepo.revokeAccess(userId);
 			else
 				rowsUpdated = -1;
 

@@ -1,12 +1,15 @@
 package com.nsec.mess.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -28,8 +31,8 @@ public class User {
 	@Column(name = "USERNAME")
 	private String username;
 	
-	@Column(name = "NAME")
-	private String name;
+	@Column(name = "FULL_NAME")
+	private String fullName;
 
 	@Column(name = "PHONE")
 	private String phone;
@@ -69,5 +72,14 @@ public class User {
 	
 	@Column(name = "REG_DATE")
 	private Date regDate;
+	
+	@OneToMany(mappedBy = "paidUser", fetch = FetchType.LAZY)
+	List<MessDeposit> userDeposits;
+	
+	@OneToMany(mappedBy = "paymentBy", fetch = FetchType.LAZY)
+	List<MessDeposit> paymentByUsers;
+	
+	@OneToMany(mappedBy = "receivedBy", fetch = FetchType.LAZY)
+	List<MessDeposit> receivedByUsers;
 
 }

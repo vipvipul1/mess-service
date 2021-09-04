@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.nsec.mess.models.User;
 import com.nsec.mess.repository.auth.IRegisterUserRepo;
-import com.nsec.mess.vo.UserVo;
+import com.nsec.mess.vo.UserVO;
 
 @Service
 public class RegisterUserService implements IRegisterUserService {
@@ -17,17 +17,17 @@ public class RegisterUserService implements IRegisterUserService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(RegisterUserService.class);
 	
 	@Autowired
-	private IRegisterUserRepo registerUserRepo;
+	private IRegisterUserRepo iRegisterUserRepo;
 	
 	@Override
 	@Transactional
-	public Integer registerUser(UserVo userVo) {
+	public Integer registerUser(UserVO userVo) {
 		LOGGER.info("RegisterUserService :: registerUser :: Start");
 		
 		User userEntity = new User();
 		BeanUtils.copyProperties(userVo, userEntity);
 		try {
-			userEntity = registerUserRepo.registerUser(userEntity);
+			userEntity = iRegisterUserRepo.registerUser(userEntity);
 		} catch(Exception e) {
 			LOGGER.error("Error in RegisterUserService :: registerUser : {}", e.getMessage());
 			throw e;
@@ -44,7 +44,7 @@ public class RegisterUserService implements IRegisterUserService {
 		
 		Boolean isAvailable = null;
 		try {
-			isAvailable = registerUserRepo.validateUserBeforeRegister(data);
+			isAvailable = iRegisterUserRepo.validateUserBeforeRegister(data);
 		} catch(Exception e) {
 			LOGGER.error("Error in RegisterUserService :: validateUserBeforeRegister : {}", e.getMessage());
 			throw e;

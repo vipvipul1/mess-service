@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nsec.mess.models.User;
 import com.nsec.mess.rest.util.BaseControllerMess;
 import com.nsec.mess.service.auth.ILoginUserService;
-import com.nsec.mess.vo.UserVo;
+import com.nsec.mess.vo.UserVO;
 
 @RestController
 @RequestMapping("/mess/login")
@@ -22,15 +22,15 @@ public class LoginUserController extends BaseControllerMess {
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginUserController.class);
 	
 	@Autowired
-	private ILoginUserService loginUserService;
+	private ILoginUserService iLoginUserService;
 
 	@PostMapping("/user")
-	public ResponseEntity<?> validateUserLogin(@RequestBody UserVo userVo) {
+	public ResponseEntity<?> validateUserLogin(@RequestBody UserVO userVo) {
 		LOGGER.info("LoginUserController :: validateUserLogin :: Start");
 		ResponseEntity<?> response = null;
 		
 		try {
-			User user = loginUserService.validateUserLogin(userVo.getUsername(), userVo.getPassword());
+			User user = iLoginUserService.validateUserLogin(userVo.getUsername(), userVo.getPassword());
 			response = ResponseEntity.ok().body(user);
 		} catch(Exception e) {
 			LOGGER.error("Error in LoginUserController :: validateUserLogin : {}", e);
