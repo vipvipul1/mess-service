@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `mess` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `mess`;
 -- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
 --
 -- Host: localhost    Database: mess
@@ -18,39 +16,42 @@ USE `mess`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `mess_deposits`
+-- Table structure for table `mess_deposit`
 --
 
-DROP TABLE IF EXISTS `mess_deposits`;
+DROP TABLE IF EXISTS `mess_deposit`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `mess_deposits` (
+CREATE TABLE `mess_deposit` (
   `deposit_id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int DEFAULT NULL,
+  `paid_user` int DEFAULT NULL,
   `month` int DEFAULT NULL,
+  `year` int DEFAULT NULL,
   `deposit_date` date DEFAULT NULL,
   `amount` int DEFAULT NULL,
-  `deposit_by` int DEFAULT NULL,
-  `deposit_to` int DEFAULT NULL,
+  `payment_by` int DEFAULT NULL,
+  `received_by` int DEFAULT NULL,
   `payment_mode` varchar(20) DEFAULT NULL,
   `outstanding` int DEFAULT NULL,
+  `comments` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`deposit_id`),
-  KEY `fk_user_id_idx` (`user_id`),
-  KEY `fk_deposit_by_idx` (`deposit_by`),
-  KEY `fk_deposit_to_idx` (`deposit_to`),
-  CONSTRAINT `fk_deposit_by` FOREIGN KEY (`deposit_by`) REFERENCES `user` (`user_id`),
-  CONSTRAINT `fk_deposit_to` FOREIGN KEY (`deposit_to`) REFERENCES `user` (`user_id`),
-  CONSTRAINT `fk_deposit_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk_user_id_idx` (`paid_user`),
+  KEY `fk_deposit_by_idx` (`payment_by`),
+  KEY `fk_deposit_to_idx` (`received_by`),
+  CONSTRAINT `fk_paid_user_id` FOREIGN KEY (`paid_user`) REFERENCES `user` (`user_id`),
+  CONSTRAINT `fk_payment_by` FOREIGN KEY (`payment_by`) REFERENCES `user` (`user_id`),
+  CONSTRAINT `fk_received_by` FOREIGN KEY (`received_by`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `mess_deposits`
+-- Dumping data for table `mess_deposit`
 --
 
-LOCK TABLES `mess_deposits` WRITE;
-/*!40000 ALTER TABLE `mess_deposits` DISABLE KEYS */;
-/*!40000 ALTER TABLE `mess_deposits` ENABLE KEYS */;
+LOCK TABLES `mess_deposit` WRITE;
+/*!40000 ALTER TABLE `mess_deposit` DISABLE KEYS */;
+INSERT INTO `mess_deposit` VALUES (1,31,9,2021,'2021-08-04',2000,31,32,'upi',0,NULL);
+/*!40000 ALTER TABLE `mess_deposit` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -116,7 +117,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
+  `full_name` varchar(45) DEFAULT NULL,
   `phone` varchar(10) NOT NULL,
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
@@ -190,4 +191,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-20  7:21:47
+-- Dump completed on 2021-09-04 20:18:05
